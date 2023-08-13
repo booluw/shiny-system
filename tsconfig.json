@@ -1,6 +1,7 @@
 
 {
   "compilerOptions": {
+    "types": ["element-plus/global"],
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
