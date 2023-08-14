@@ -65,16 +65,16 @@ interact(".draggable").resizable({
   }
 })
 
-interact("#bin").dropzone({
-  ondrop: function (event) {
-    const item = (items, ['img', event.relatedTarget.dataset.img])
-    if (item) {
-      remove(items, {
-        img: event.relatedTarget.dataset.img
-      })
-    }
-  }
-})
+// interact("#bin").dropzone({
+//   ondrop: function (event) {
+//     const item = (items, ['img', event.relatedTarget.dataset.img])
+//     if (item) {
+//       remove(items, {
+//         img: event.relatedTarget.dataset.img
+//       })
+//     }
+//   }
+// })
 
 const addImageToItem = function(image) {
   const item = find(items, ['img', image])
@@ -101,7 +101,7 @@ const downloadImage = async function() {
           <el-button @click="downloadImage()" size="large" :disabled="items.length === 0">Download</el-button>
         </div>
         <div class="md:flex">
-          <div class="fixed top-24 left-4 border-transparent border-4 bg-red-300 p-10 md:p-24 rounded" id="bin" />
+          <!-- <div class="fixed top-24 left-4 border-transparent border-4 bg-red-300 p-10 md:p-24 rounded" id="bin" /> -->
           <div
             class="dropzone bg-slate-50 h-screen overflow-hidden md:w-4/6"
             id="dropzone"
