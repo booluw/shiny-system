@@ -1,13 +1,16 @@
 <script lang="ts" setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive } from 'vue';
+
 import interact from 'interactjs';
 import axios from "axios";
 import buffer from "buffer";
+import { useItemStore } from '../store/item';
 
 interact('.item').draggable({})
 
 const loading = ref(false)
-let imgs = JSON.parse(localStorage.getItem("images")) ?? []
+const itemStore = useItemStore()
+let imgs = itemStore.itemGetter
 const hidden = ref(false)
 
 const fileUpload = function(e) {
@@ -42,8 +45,10 @@ const fileUpload = function(e) {
 				url: "https://api.cloudinary.com/v1_1/booluw/upload",
 				data: cloudinaryForm
 			}).then((response) => {
-				imgs.unshift(response.data.secure_url);
-				localStorage.setItem("images", JSON.stringify([...imgs]));
+				itemStore.addItem(response.data.secure_url)
+				// imgs.unshift(response.data.secure_url);
+				// localStorage.setItem("images", JSON.stringify([...imgs]));
+				// console.log(imgs)
 			}).catch((error) => {
 				console.assert(error);
 			})
