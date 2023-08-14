@@ -1,7 +1,7 @@
 
 {
   "compilerOptions": {
-    "types": ["element-plus/global"],
+    "types": ["element-plus/global", "vue-router/types"],
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
