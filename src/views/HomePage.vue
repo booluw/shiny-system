@@ -6,6 +6,8 @@ import * as htmlToImage from 'html-to-image';
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import { saveAs } from 'file-saver';
 
+import SidePanel from "@/components/SidePanel.vue"
+
 const items = reactive([])
 
 interact(".dropzone").dropzone({

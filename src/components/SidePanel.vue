@@ -7,7 +7,7 @@ import buffer from "buffer";
 interact('.item').draggable({})
 
 const loading = ref(false)
-let imgs = [...JSON.parse(localStorage.getItem("images"))] ?? []
+let imgs = JSON.parse(localStorage.getItem("images")) ?? []
 const hidden = ref(false)
 
 const fileUpload = function(e) {
@@ -76,6 +76,7 @@ const fileUpload = function(e) {
             </div>
             <div
                 class="h-full py-3 px-5 grid grid-cols-2 gap-5 overflow-scroll pb-24"
+								v-if="imgs.length !== 0"
             >
                 <div
 									class="item bg-slate-50 border-4 border-white h-48 rounded-xl text-3xl flex justify-center items-center hover:border-primary"
@@ -87,6 +88,24 @@ const fileUpload = function(e) {
 									<img :src="img" class="w-3/4 h-auto" />
                 </div>
             </div>
+						<div v-else>
+							<div
+								class="mt-20 mx-auto w-3/4 text-center border-4 border-dashed p-10 text-gray-500 font-bold text-2xl cursor-pointer hover:border-gray-300 hover:bg-gray-100"
+								@click="$refs.file.click()"
+							>
+								Nothing here
+								<p class="text-sm font-normal">Click to upload</p>
+							</div>
+							<div class="w-3/4 mx-auto mt-5">
+								<h2 class="font-semibold">How to use</h2>
+								<ul class="list-inside list-disc">
+									<li>Place the dress you want to upload on a flat surface</li>
+									<li>Take a clear picture</li>
+									<li>Click on the 'upload' button to upload to Dresser</li>
+									<li>Style your outfit. <i class="text-red-500">Images are stored on your browser cache. Online backup would come in subsequent versions</i></li>
+								</ul>
+							</div>
+						</div>
         </div>
     </div>
 </template>
