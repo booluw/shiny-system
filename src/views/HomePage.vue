@@ -2,6 +2,11 @@
 import { reactive } from "vue";
 import interact from 'interactjs';
 import { find, indexOf, remove } from "lodash";
+import * as htmlToImage from 'html-to-image';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import { saveAs } from 'file-saver';
+
+const items = reactive([])
 
 interact(".dropzone").dropzone({
   ondrop: function(event) {
@@ -69,7 +74,6 @@ interact("#bin").dropzone({
   }
 })
 
-const items = reactive([])
 const addImageToItem = function(image) {
   const item = find(items, ['img', image])
     if (!item) {
@@ -77,14 +81,25 @@ const addImageToItem = function(image) {
     }
 }
 
+const downloadImage = async function() {
+  let node = document.getElementById('dropzone')
+  await htmlToImage.toPng(node)
+  .then(function (dataUrl) {
+     saveAs(dataUrl, 'my-style.png');
+  }).catch(error => {
+    console.log(error);
+  });
+}
+
 </script>
 <template>
     <div class="h-screen overflow-hidden">
-        <div class="flex p-2 bg-white border-primary border-b sticky top-0 z-40">
+        <div class="flex justify-between items-center p-2 bg-white border-primary border-b sticky top-0 z-40">
           <img src="@/assets/Logo.png" class="w-16" />
+          <el-button @click="downloadImage()" size="large" :disabled="items.length === 0">Download</el-button>
         </div>
         <div class="md:flex">
-          <div class="fixed top-24 left-4 border-transparent border-4 bg-red-300 p-24 rounded" id="bin" />
+          <div class="fixed top-24 left-4 border-transparent border-4 bg-red-300 p-10 md:p-24 rounded" id="bin" />
           <div
             class="dropzone bg-slate-50 h-screen overflow-hidden md:w-4/6"
             id="dropzone"
@@ -94,7 +109,7 @@ const addImageToItem = function(image) {
                 Drag or click on an item to add
               </div>
             </div>
-            <div>
+            <div id="frame">
               <div
                 class="draggable w-32 h-auto border border-transparent hover:border-slate-300 rounded absolute"
                 :class="item.pos.x === 0 ? 'top-[100px]' : ''"
