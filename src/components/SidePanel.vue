@@ -68,7 +68,7 @@ const fileUpload = function(e) {
             @click="hidden = !hidden"
         ></div>
         <div class="h-[45vh] md:h-full md:mb-16 relative" :class="hidden ? 'block' : 'hidden md:block'">
-					<input type="file" accept="image/*" ref="file" class="hidden" @change="fileUpload" />
+					<input type="file" accept="image/png, image/jpeg" ref="file" class="hidden" @change="fileUpload" />
             <div
                 class="flex justify-between items-center sticky top-0 p-5 bg-white"
             >

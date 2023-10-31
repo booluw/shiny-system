@@ -6,9 +6,16 @@ import * as htmlToImage from 'html-to-image';
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import { saveAs } from 'file-saver';
 
+import { polyfill } from "mobile-drag-drop";
+import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scroll-behaviour";
+
+polyfill({
+  dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride
+})
+
 import SidePanel from "@/components/SidePanel.vue"
 
-const items = reactive([])
+const items = reactive([]) as any
 
 interact(".dropzone").dropzone({
   ondrop: function(event) {
@@ -99,6 +106,10 @@ const downloadImage = async function() {
         <div class="flex justify-between items-center p-2 bg-white border-primary border-b sticky top-0 z-40">
           <img src="@/assets/Logo.png" class="w-16" />
           <el-button @click="downloadImage()" size="large" :disabled="items.length === 0">Download</el-button>
+        </div>
+        <div class="fixed md:bottom-5 right-5 md:left-5 md:right-auto text-3xl text-black/30 font-bold text-right md:text-left pt-5">
+          #GRWM
+          <small class="-mt-4 block">app</small>
         </div>
         <div class="md:flex">
           <!-- <div class="fixed top-24 left-4 border-transparent border-4 bg-red-300 p-10 md:p-24 rounded" id="bin" /> -->
